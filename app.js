@@ -12,25 +12,25 @@ app.use(bodyParser.json());
 app.use(
     '/graphql',
     graphqlHttp({
-    schema: graphQlSchema,
-    rootValue: graphQlResolvers
-}));
+        schema: graphQlSchema,
+        rootValue: graphQlResolvers
+    }));
 
 const options = {
     autoIndex: false,
-    reconnectTries: 30, 
-    reconnectInterval: 500, 
-    poolSize: 10, 
+    reconnectTries: 30,
+    reconnectInterval: 500,
+    poolSize: 10,
     bufferMaxEntries: 0
-  }
-  const connectWithRetry = () => {
+}
+const connectWithRetry = () => {
     console.log('MongoDB connection with retry')
-    mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-bauev.azure.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, options).then(()=>{
+    mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-bauev.azure.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, options).then(() => {
         console.log('MongoDB is connected')
         app.listen(3000);
-    }).catch(err=>{
-      console.log('MongoDB connection unsuccessful, retry after 5 seconds.', err)
-      setTimeout(connectWithRetry, 5000)
+    }).catch(err => {
+        console.log('MongoDB connection unsuccessful, retry after 5 seconds.', err)
+        setTimeout(connectWithRetry, 5000)
     })
-  }
-  connectWithRetry()
+}
+connectWithRetry()
