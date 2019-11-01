@@ -25,7 +25,7 @@ const options = {
 }
 const connectWithRetry = () => {
     console.log('MongoDB connection with retry')
-    mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-bauev.azure.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, options).then(() => {
+    mongoose.connect(`mongodb+srv://lfaitanin:faitanin123@cluster0-bauev.azure.mongodb.net/test?retryWrites=true&w=majority`, options).then(() => {
         console.log('MongoDB is connected')
         app.listen(3000);
     }).catch(err => {
